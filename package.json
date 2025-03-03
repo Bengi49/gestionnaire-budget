@@ -2,30 +2,21 @@
   "name": "budget-safe-web",
   "version": "1.0.0",
   "description": "Un gestionnaire de budget simple et efficace.",
+  "type": "module",
   "scripts": {
     "start": "vite",
     "build": "vite build",
-    "preview": "vite preview",
+    "preview": "vite preview --host",
     "deploy": "npm run build"
   },
   "dependencies": {
     "@emailjs/browser": "^4.3.1",
-    "firebase": "^10.8.0",
     "cors": "^2.8.5",
     "express": "^4.21.2",
+    "firebase": "^10.8.0",
     "helmet": "^8.0.0",
     "jspdf": "^3.0.0",
-    "validator": "^13.12.0"
-  },
-  "devDependencies": {
-    "vite": "^5.1.4",
-    "@babel/core": "^7.26.0",
-    "@babel/preset-env": "^7.26.0",
-    "babel-loader": "^9.2.1",
-    "webpack": "^5.97.1",
-    "webpack-cli": "^6.0.1"
-  },
-  "keywords": [],
-  "author": "Bengi49",
-  "license": "ISC"
+    "validator": "^13.12.0",
+    "vite": "^6.2.0"
+  }
 }

@@ -1,4 +1,3 @@
-# Image de base Node.js avec une version spécifique
 FROM node:20.11.1-alpine3.19
 
 # Définition des variables d'environnement
