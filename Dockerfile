@@ -1,18 +1,12 @@
-FROM node:20.11.1-alpine3.19
+# Stage de build
+FROM node:20.11.1-alpine3.19 AS builder
 
-# Définition des variables d'environnement
-ENV NODE_ENV=production
-ENV PORT=3000
-
-WORKDIR /usr/src/app
-
-# Mise à jour de npm et installation des dépendances
+WORKDIR /build
 COPY package*.json ./
 COPY vite.config.js ./
-RUN npm install -g npm@latest && \
-    npm install --production --no-optional && \
-    npm audit fix && \
-    npm install -g vite
+
+# Installation des dépendances de build
+RUN npm install
 
 # Copie des sources
 COPY . .
@@ -20,8 +14,22 @@ COPY . .
 # Construction
 RUN npm run build
 
-# Exposition du port
+# Stage de production
+FROM node:20.11.1-alpine3.19
+
+WORKDIR /app
+
+# Copie des fichiers de production
+COPY --from=builder /build/dist ./dist
+COPY --from=builder /build/package*.json ./
+COPY --from=builder /build/vite.config.js ./
+
+# Installation des dépendances de production
+RUN npm install --production
+
+ENV NODE_ENV=production
+ENV PORT=3000
+
 EXPOSE 3000
 
-# Démarrage
 CMD ["npm", "run", "preview", "--", "--host"]
