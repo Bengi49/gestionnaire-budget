@@ -5,19 +5,18 @@ FROM node:20.11.1-alpine3.19
 ENV NODE_ENV=production
 ENV PORT=3000
 
-# Création et définition du répertoire de travail
 WORKDIR /usr/src/app
 
-# Copie des fichiers de configuration
+# Mise à jour de npm et installation des dépendances
 COPY package*.json ./
 COPY vite.config.js ./
-
-# Installation des dépendances
-RUN npm install --omit=dev
+RUN npm install -g npm@latest && \
+    npm install --production --no-optional && \
+    npm audit fix && \
+    npm install -g vite
 
 # Copie des sources
-COPY src/ ./src/
-COPY public/ ./public/
+COPY . .
 
 # Construction
 RUN npm run build
@@ -26,4 +25,4 @@ RUN npm run build
 EXPOSE 3000
 
 # Démarrage
-CMD ["npm", "start"]
+CMD ["npm", "run", "preview", "--", "--host"]
