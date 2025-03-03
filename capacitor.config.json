@@ -1,0 +1,6 @@
+{
+  "appId": "com.bengi49.budget",
+  "appName": "Gestionnaire Budget",
+  "webDir": "src",
+  "bundledWebRuntime": false
+}

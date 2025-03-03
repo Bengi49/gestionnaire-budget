@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Safe (Beta 1.0.0)</title>
+
+    <link rel="icon" type="image/x-icon" href="../public/assets/favicon.ico">
+    <link rel="stylesheet" href="../public/fonts/fonts.css">
+    <link rel="stylesheet" href="../public/styles/styles.css">
+
+    <!-- <script type="text/javascript" nonce="NONCE_PLACEHOLDER" src="https://www.google.com/recaptcha/api.js?render=explicit" async defer></script> -->
+    <!-- <script type="module" nonce="NONCE_PLACEHOLDER" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script> -->
+    <!-- <script type="module" nonce="NONCE_PLACEHOLDER" src="./scripts/email-service.js" defer></script> -->
+    
+    <script type="module" nonce="NONCE_PLACEHOLDER" src="./scripts/browser-detection.js"></script>
+    <script type="module" nonce="NONCE_PLACEHOLDER" src="../dist/bundle.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Budget Safe</h1>
+        <div>
+            <div id="platform" hidden></div>
+            <button id="color-scheme"><img src="../public/assets/contrast-icon.svg" alt="Thème"></button>
+            <div class="dropdown">
+                <input type="checkbox" name="check" id="check">
+                <label for="check" class="checkbtn">Contact</label>
+                <div class="dropdown-content">
+                    <form action="?" method="post" id="contact-form" class="form-contact">
+                        <div hidden>
+                            <div id="platform"></div>
+                        </div>
+                        <div class="form-display-reactive">
+                            <label for="name" class="ignore-result">Nom :</label>
+                            <input class="ignore-result" type="text" id="name" name="name" autocomplete="cc-name" placeholder="Inscrivez votre nom ..." required>
+                        </div>
+                        <div class="form-display-reactive">
+                            <label for="email" class="ignore-result">Email :</label>
+                            <input type="email" id="email" name="email" autocomplete="email" placeholder="Ex: name@email.com ..." required>
+                        </div>
+                        <div class="form-display-reactive">
+                            <label for="message" class="ignore-result">Message :</label>
+                            <textarea id="message" name="message" placeholder="Indiquez les raisons de votre message..." required></textarea>
+                        </div>
+                        <div class="form-display-reactive">
+                            <div id="recaptcha-container"></div>
+                            <input type="hidden" name="recaptcha-token" id="recaptcha-token">
+                        </div>
+                        <div class="center-wrapper">
+                            <button type="submit">Envoyer</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="info">
+            <p>* Rafraichir la page réinitialise les résultats !</p>
+        </div>
+        <form class="form-display-reactive" method="dialog">
+            <section id="earnings-infos">
+                <h2>Revenus</h2>
+                <hr>
+            <!-- Ajout d'un nouveau champ -->
+                <div class="center-wrapper">
+                    <div class="form-display-reactive">
+                        <label for="new-earning-name" class="ignore-result">Titre :</label>
+                        <input 
+                            type="text" 
+                            id="new-earning-name" 
+                            class="ignore-result" 
+                            name="new-earning-name" 
+                            placeholder="Ex: Salaire, Prime, Allocations,..." 
+                            maxlength="20" 
+                            size="20" 
+                            required>
+                    </div>
+                    <div class="form-display-reactive">
+                        <label for="new-earning-amount" class="ignore-result">Montant :</label>
+                        <input 
+                            type="text" 
+                            id="new-earning-amount" 
+                            class="ignore-result" 
+                            name="new-earning-amount" 
+                            placeholder="Ex: 1200..."
+                            pattern="[0-9]*[.,]?[0-9]+"
+                            inputmode="decimal"
+                            required>
+                    </div>
+                    <div class="center-wrapper">
+                        <button type="submit" id="add-earning" class="ignore-result">Ajouter un revenus</button>
+                    </div>
+                </div>
+                <hr>
+            </section>
+            <section id="expenses-infos">
+                <h2>Dépenses</h2>
+                <hr>
+                <!-- Ajout d'un nouveau champ -->
+                <div class="center-wrapper">
+                    <div class="form-display-reactive">
+                        <label for="new-expense-name" class="ignore-result">Titre :</label>
+                        <input type="text" 
+                            id="new-expense-name" 
+                            name="new-expense-name" 
+                            class="ignore-result" 
+                            placeholder="Ex: Course, Facture, Abonnement,..." 
+                            maxlength="20" 
+                            size="20" 
+                            required>
+                    </div>
+                    <div class="form-display-reactive">
+                        <label for="new-expense-amount" class="ignore-result">Montant :</label>
+                        <input 
+                            type="text" 
+                            id="new-expense-amount" 
+                            name="new-expense-amount" 
+                            class="ignore-result" 
+                            placeholder="Ex: 1200..."
+                            pattern="[0-9]*[.,]?[0-9]+"
+                            inputmode="decimal"
+                            required>
+                    </div>
+                    <div class="center-wrapper">
+                        <button type="submit" id="add-expense" class="ignore-result">Ajouter une dépense</button>
+                    </div>
+                </div>
+                <hr>
+            </section>
+        </form>
+        <section id="balance-infos" class="form-balance">
+            <h2>Solde Total</h2>
+            <hr>
+            <div class="form-display-reactive">
+                <label for="earnings-total">Revenus : </label>
+                <input type="number" name="earnings-total" id="earnings-total" readonly>
+            </div>
+            <div class="form-display-reactive">
+                <label for="expenses-total">Dépenses : </label>
+                <input type="number" name="expenses-total" id="expenses-total" readonly>
+            </div>
+            <hr>
+            <div class="form-display-reactive font-large">
+                <label for="balance">Solde restant :</label>
+                <input type="number" name="balance" id="balance" readonly>
+            </div>
+            <hr>
+            <div class="center-wrapper">
+                <div class="btn-download">
+                    <button id="download-pdf">Télécharger PDF</button>
+                </div>
+                <div class="btn-download">
+                    <button id="download-csv">Télécharger CSV</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 - Tous droits réservés</p>
+    </footer>
+</body>
+</html>

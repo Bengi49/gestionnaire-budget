@@ -1,0 +1,65 @@
+# Dépendances
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Configuration et clés secrètes
+config/recaptcha.js
+back4app-config.js
+.env
+.env.local
+.env.development
+.env.production
+src/scripts/email-config.js
+config/*.key
+config/*.pem
+
+# Certificats SSL
+/certificates
+
+# Distribution et build
+/dist
+/build
+/out
+*.exe
+*.dmg
+*.app
+*.zip
+*.tar.gz
+
+# Système d'exploitation
+.DS_Store
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# IDE et éditeurs
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+.project
+.settings/
+
+# Logs et données temporaires
+logs/
+*.log
+.temp/
+.cache/
+coverage/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Spécifique à Electron
+.webpack/
+.electron-builder/
+
+# Tests
+/coverage
+.nyc_output
